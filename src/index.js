@@ -1,12 +1,12 @@
 const boxes = document.querySelectorAll('.box');
 let clear = document.querySelector('#clear');
-let winStatus = document.querySelector('#winStatus');
+export var winStatus = document.querySelector('#winStatus');
 const x = '❌';
 const o = '⭕';
-const array = ['','','','','','','',''];
-let continueGame = true;
-let currentPlayer = x;
-let players = 'Player1';
+export const array = ['','','','','','','',''];
+export var continueGame = true;
+export var currentPlayer = x;
+export var  players = 'Player1';
 init();
 
 export function add(a,b){
@@ -15,23 +15,24 @@ export function add(a,b){
 
 export function init()  {
   boxes.forEach((box) => {
-    box.addEventListener('click',boxCheck)
+    box.addEventListener('click',boxCheck, false)
   });
-  clear.addEventListener('click', restartGame);
+  clear.addEventListener('click', restartGame, false);
 }
 
 export function boxCheck(e) {
+  console.log(e)
   const id = e.target.id
   if(!continueGame){
+    debugger
     return;
   }
   if(!array[id]){
     debugger
     array[id] = currentPlayer;
     e.target.innerText = currentPlayer;
-    winner();
     changePlayer();
-
+    winner();
   };
 }
 
@@ -41,7 +42,8 @@ export function changePlayer() {
   currentPlayer = currentPlayer == x ? o : x;
 }
 
-function winner(){
+export var test =  {
+  winner: function winner(){
   let b0 = document.getElementById('0').innerHTML;
   let b1 = document.getElementById('1').innerHTML;
   let b2 = document.getElementById('2').innerHTML;
@@ -93,8 +95,9 @@ function winner(){
   }
   draw();
 }
+}
 
-function restartGame()  {
+export function restartGame()  {
   currentPlayer = x
   winStatus.textContent = `Start Now`;
   players = 'Player1'
@@ -107,10 +110,31 @@ function restartGame()  {
   }))
 }
 
-function draw(){
+export function draw(){
   if(!array.includes('')){
     debugger
     winStatus.innerHTML = `Game Draw`
     continueGame = false;
+  }
+}
+
+export var obje  = {
+  test: function() {
+ console.log('test')
+  },
+  testData: function() {
+    console.log('test12')
+  },
+  test5: function()  {
+    currentPlayer = x
+    winStatus.textContent = `Start Now`;
+    players = 'Player1'
+    continueGame= true;
+    boxes.forEach((box) => {
+      box.innerText = ""
+    });
+    array.forEach(((a,i) => {
+      array[i] = '';
+    }))
   }
 }
